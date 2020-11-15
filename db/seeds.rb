@@ -1,7 +1,17 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+# Generates Seed data via csv file in /lib/seeds/pharmacies.csv
+
+require 'csv'
+unparsed_pharmacies = File.read(Rails.root.join('lib', 'seeds', 'pharmacies.csv'))
+parsed_pharmacies = CSV.parse(unparsed_pharmacies, headers: true, encoding: 'UTF-8')
+
+parsed_pharmacies.each do |pharmacy|
+  Pharmacy.create(
+    name: pharmacy['name'].strip,
+    street_address: pharmacy['address'].strip,
+    city: pharmacy['city'].strip,
+    state: pharmacy['state'].strip,
+    zip: pharmacy['zip'].strip,
+    latitude: pharmacy['latitude'].strip,
+    longitude: pharmacy['longitude'].strip,
+  )
+end
