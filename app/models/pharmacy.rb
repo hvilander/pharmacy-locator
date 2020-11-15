@@ -1,8 +1,17 @@
 require 'geokit'
 
 class Pharmacy < ApplicationRecord
+    attr_accessor :distance
+
+    # Public: Class method to find the pharmacy nearest to the given location in latitude / longitude
+    #
+    # latitude: a String representation of the latitude
+    # longitude: a String representation of the longitude 
+    #
+    # returns a Pharmacy object with a distance field. The distance is caluclated in miles between the user's
+    #   location and the Pharmacy
     def self.get_nearest_pharmacy(latitude, longitude)
-        # KU MED
+        
         user_latlon = Geokit::LatLng.new(latitude, longitude);
         all_pharmacies = Pharmacy.all
 
