@@ -22,3 +22,19 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+
+## TO FILL OUT
+
+Postgres install
+
+db setup
+
+bundle install
+
+running the server
+
+hitting the front end or api directly
+
+running tests
