@@ -1,3 +1,4 @@
+json.ignore_nil!
 json.pharmacy do
   json.name @nearest_pharmacy.name
   json.address @nearest_pharmacy.street_address

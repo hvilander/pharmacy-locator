@@ -25,7 +25,7 @@ class Pharmacy < ApplicationRecord
 
         index_of_min_value = distances.each_with_index.min[1]
         nearest_pharmacy = all_pharmacies[index_of_min_value]
-        nearest_pharmacy.distance = distance_index_pair[0]
+        nearest_pharmacy.distance = distance_index_pair[0].round(3)
 
         return nearest_pharmacy 
     end
