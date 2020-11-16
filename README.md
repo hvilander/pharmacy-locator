@@ -43,6 +43,7 @@ System dependencies:
 |PostgreSQL: | `13.0`| See [PostgreSQL Setup](###-postgresql-setup) |
 |Node: | `10.15.3`| Version manager: [nvm](https://github.com/nvm-sh/nvm#node-version-manager---)|
 |Bundler: | `2.1.4` | [bundler.io](https://bundler.io)|
+|yarn: | 1.22.5 | required for rails to pack frontend [yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable)|
 
 ### PostgreSQL Setup 
 
@@ -50,13 +51,13 @@ Assuming you have homebrew installed, you can use it to install postgres. This w
 
 `brew install postgresql` 
 
-You will need to add PostgreSQL to your path. Add something like this to your relvant shell profile. Note my version was 13, if you are on another version you would need to replace the `13` in this step and the next step
+You will need to add PostgreSQL to your path. Add something like this to your relvant shell profile. Note my version was 13, if you are on another version you would need to replace the `13`.
 
 `export PATH="/usr/local/opt/postgresql@13/bin:$PATH"`
 
 This will start the service and enable it to start at logon.
 
-`brew services start postgres@13`
+`brew services start postgres`
 
 You may have to restart your shell to see the change to your shell config. Or simply rerun your shell's profile or rc file. Zsh is used in this example.
 
@@ -87,14 +88,14 @@ Assumes you have [bundler](https://guides.rubyonrails.org/v6.0/getting_started.h
 3. Seed the DB
 Run once, to popluate the database with seed data from `lib/seeds/pharmacies.csv`
 
-    `rake db:migrate`
-
     `rake db:setup`
 
-4. Install Node modules
-Installs the modules to run the front end.
+    `rake db:migrate`
 
-    `npm install`
+4. Install Node modules
+Installs the modules to run the front end. Note rails is also using yarn to run webpack.
+
+    `yarn install`
 
 5. Start the server
 
