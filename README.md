@@ -8,7 +8,7 @@ Provides information on the nearest pharmacy given a reference latitude and long
 `GET {root}/pharmacy?latitude=<reference latitude>&longitude=<reference longitude>`
 
 ### Example
-`http://localhost:3000/pharmacy?latitude=39.05;longitude=-94.611`
+`http://localhost:3000/pharmacy?latitude=39.05&longitude=-94.611`
 
 ### Sample Response
 ```js
@@ -40,7 +40,7 @@ System dependencies:
 |---|---|---|
 |Ruby:| `2.6.3`| Version manager: [rvm](https://rvm.io) |
 |Rails: | `6.0.3.4`| [Rails](https://guides.rubyonrails.org)| 
-|PostgreSQL: | `13.0`| See [below](###-postgresql-setup) |
+|PostgreSQL: | `13.0`| See [PostgreSQL Setup](###-postgresql-setup) |
 |Node: | `10.15.3`| Version manager: [nvm](https://github.com/nvm-sh/nvm#node-version-manager---)|
 |Bundler: | `2.1.4` | [bundler.io](https://bundler.io)|
 
@@ -50,11 +50,11 @@ Assuming you have homebrew installed, you can use it to install postgres. This w
 
 `brew install postgresql` 
 
-You will need to add PostgreSQL to your path. Add something like this to your relvant shell profile. Note my version was 13, if you are on another version you would need to replace the `13` below. 
+You will need to add PostgreSQL to your path. Add something like this to your relvant shell profile. Note my version was 13, if you are on another version you would need to replace the `13` in this step and the next step
 
 `export PATH="/usr/local/opt/postgresql@13/bin:$PATH"`
 
-This will starti the service and enable it to start at logon. Again, you may need to replace the `13` with your version. 
+This will start the service and enable it to start at logon.
 
 `brew services start postgres@13`
 
@@ -66,11 +66,11 @@ Running this will confirm PostgreSQL is installed correctly. If you see the vers
 
 `postgres -V`
 
-Finally you will need to create a db user. The `-P` flag will prompt for password creation. The `-d` flag will give the user permission to create databases. Take note of the name, the config set to use this name. 
+Finally you will need to create a db user. The `-P` flag will prompt for password creation. The `-d` flag will give the user permission to create databases. Take note of the name, rails db configuration is set to use this exact user name. 
 
 `createuser -P -d pharmacy-finder` 
 
-To simplify configuration, instead of modifying config files, Rails will get the crendentials from an environment variable. Add it to your shell config. Again the example uses zsh, you may need to adjsut for your shell. Refresh your shell again as above. Replace `YOUR PASSWORD HERE` with your password.
+To simplify configuration, instead of modifying config files, Rails will get the crendentials from an environment variable. Add it to your shell config. Again the example uses zsh, you may need to adjsut for your shell. Refresh your shell again as above. Replace `YOUR PASSWORD HERE` with the db password set in the previous step.
 
 `echo 'export rx_db_pw="YOUR PASSWORD HERE"' >> ~/.zshrc`
 
@@ -80,7 +80,7 @@ To simplify configuration, instead of modifying config files, Rails will get the
     `git clone https://github.com/hvilander/pharmacy-locator.git`
 
 2. Install Gems
-Assumes you have (bundler) [https://guides.rubyonrails.org/v6.0/getting_started.html], from the project directory run:
+Assumes you have [bundler](https://guides.rubyonrails.org/v6.0/getting_started.html), from the project directory run:
 
     `bundle install`
 
@@ -88,6 +88,7 @@ Assumes you have (bundler) [https://guides.rubyonrails.org/v6.0/getting_started.
 Run once, to popluate the database with seed data from `lib/seeds/pharmacies.csv`
 
     `rake db:migrate`
+
     `rake db:setup`
 
 4. Install Node modules
@@ -95,16 +96,16 @@ Installs the modules to run the front end.
 
     `npm install`
 
-5. Running the server
+5. Start the server
 
-`bundle exec rails s`
+    `bundle exec rails s`
 
 ## Example site
 Once the rails server is running you can view the unstyled example front end by visiting 
 
 http://localhost:3000
 
-Clicking the `Find Nearest Pharmacy` button will use the latitude and longitude in the text boxes to calcuate and find the nearest pharmacy in the database. There is not currently a view to show an error. Leaving a either of the coordinates blank or not a number within the bounds of real latitude/longitude values will log an error to the console. 
+Clicking the `Find Nearest Pharmacy` button will use the latitude and longitude in the text boxes to calcuate and find the nearest pharmacy in the database. There is not currently a view to show an error. Leaving either of the coordinates blank or not a number within the bounds of real latitude/longitude values will log an error to the console. 
 
 Distance is calulated using [geokit-rails](https://github.com/geokit/geokit-rails). Instead of re-implementing a haversine or other methods I elected to go with the geokit library as it also opens up geocoding options like inputing an address 
 
