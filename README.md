@@ -1,5 +1,5 @@
 # Pharmacy Locator
-An example API for a coding challenge
+An example API for a coding challenge and unstyled minimal React frontend. API is implemented in Ruby on Rails and is also set to serve the frontend.
 
 ## API
 Provides information on the nearest pharmacy given a reference latitude and longitude.
