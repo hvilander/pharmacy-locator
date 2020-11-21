@@ -6,7 +6,6 @@ function Pharmacy(props) {
     address,
     distance,
   } = props;
-  console.log('in pharm')
 
   return (
     <>
